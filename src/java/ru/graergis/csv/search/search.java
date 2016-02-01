@@ -1,9 +1,9 @@
-package searchCSV;
+package ru.graergis.csv.search;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class search {
+public class Search {
 
     public static void main(String[] args) throws IOException, ParseException {
         try {

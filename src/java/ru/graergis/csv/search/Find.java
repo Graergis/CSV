@@ -1,4 +1,4 @@
-package searchCSV;
+package ru.graergis.csv.search;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

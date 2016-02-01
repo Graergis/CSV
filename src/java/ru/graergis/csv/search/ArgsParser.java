@@ -1,4 +1,4 @@
-package searchCSV;
+package ru.graergis.csv.search;
 
 public class ArgsParser {
 
