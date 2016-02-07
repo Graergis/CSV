@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Find {
-
     private final String col;
     private final String exp;
     private final String in;
