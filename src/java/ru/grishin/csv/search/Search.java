@@ -1,4 +1,4 @@
-package ru.graergis.csv.search;
+package ru.grishin.csv.search;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

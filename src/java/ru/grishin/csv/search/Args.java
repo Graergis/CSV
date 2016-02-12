@@ -1,4 +1,4 @@
-package ru.graergis.csv.search;
+package ru.grishin.csv.search;
 
 public class Args {
     private final String in;
