@@ -36,8 +36,10 @@ public class ArgsParser {
         }
         if (!in.endsWith(".csv")){
             throw new ParseException("Неверное расширение входного файла.");
-        }else { if ((new File(in)).exists()) {
-        } else
+        }else {
+            if ((new File(in)).exists()) {
+                System.out.println("Используемый файл - " + in);
+            } else
             throw new ParseException("Указанный файл не найден.");
         }
         if (!out.endsWith(".csv")) {
