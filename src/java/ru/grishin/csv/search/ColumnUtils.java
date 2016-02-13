@@ -11,38 +11,29 @@ public class ColumnUtils {
         String test = "\";";
         List result2 = new ArrayList<>();
         for (char c : line.toCharArray()) {
+            if ("\"".equals(s)) {
+                spec = true;
+                s = s.substring(0, s.length() -1);
+            }
             if (spec){
-                if (';' == c) {
-                    spec = false;
-                }
-                if ('\"' == c) {
-                    spec = false;
-                    s += c;
-                } else
-                    s += c;
-                if (s.endsWith(test)) { //Предотвращает продолжение сбора строки, если "спец" строка заканчивается на """;.
+                s += c;
+                if (s.endsWith(test)) {
+                    s = s.substring(0, s.length() -2);
+                    s = s.replace("\"\"", "\"");
                     result2.add(s);
                     s = "";
                     spec = false;
                 }
-            } else {
-                if ('\"' == c) {
-                    spec = true;
+            }  else {
+                if (';' != c) {
+                    s += c;
                 } else {
-                    if (';' != c) {
-                        s += c;
-                    }  else {
-                        if (';' != c) {
-                            s += c;
-                        } else {
-                            if (s.startsWith("\"")) {
-                                s = s.substring(1, s.length() - 1);
-                            }
-                            result2.add(s);
-                            s = "";
-                            spec = false;
-                        }
+                    if (s.startsWith("\"")) {
+                        s = s.substring(1, s.length() - 1);
                     }
+                    result2.add(s);
+                    s = "";
+                    spec = false;
                 }
             }
         }
