@@ -1,5 +1,7 @@
 package ru.grishin.csv.search;
 
+import ru.grishin.csv.search.exception.CheckException;
+
 import java.text.SimpleDateFormat;
 
 public class Check {

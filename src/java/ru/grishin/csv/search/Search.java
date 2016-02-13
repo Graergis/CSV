@@ -1,5 +1,7 @@
 package ru.grishin.csv.search;
 
+import ru.grishin.csv.search.exception.ParseException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 
