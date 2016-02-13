@@ -8,7 +8,6 @@ public class ColumnUtils {
     public static String[] parse(String line)  {
         String s = "";
         boolean spec = false;
-        String test = "\";";
         List result2 = new ArrayList<>();
         for (char c : line.toCharArray()) {
             if ("\"".equals(s)) {
@@ -17,7 +16,7 @@ public class ColumnUtils {
             }
             if (spec){
                 s += c;
-                if (s.endsWith(test)) {
+                if (s.matches("(?i).*[a-zа-я]\";") | s.matches("(?i).*[a-zа-я]\"\"\";")) {
                     s = s.substring(0, s.length() -2);
                     s = s.replace("\"\"", "\"");
                     result2.add(s);
