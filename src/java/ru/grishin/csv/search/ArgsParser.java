@@ -34,24 +34,24 @@ public class ArgsParser {
                 }
             }
         }
-        if (!in.endsWith(".csv")){
+        if (!in.endsWith(".csv")) {
             throw new ParseException("Неверное расширение входного файла.");
-        }else {
+        } else {
             if ((new File(in)).exists()) {
                 System.out.println("Используемый файл - " + in);
             } else
-            throw new ParseException("Указанный файл не найден.");
+                throw new ParseException("Указанный файл не найден.");
         }
         if (!out.endsWith(".csv")) {
             throw new ParseException("Неверное расширение выходного файла.");
         }
-        if (!enc.endsWith("UTF-8")){
+        if (!enc.equals("UTF-8")) {
             throw new ParseException("Неверная кодировка файла.");
         }
-        if (!col.endsWith("")){
+        if (!col.endsWith("")) {
             throw new ParseException("Неверное название столбца.");
         }
-        if (!exp.endsWith("")){
+        if (!exp.endsWith("")) {
             throw new ParseException("Некорректное значение.");
         }
         return new Args(in, out, enc, col, exp);

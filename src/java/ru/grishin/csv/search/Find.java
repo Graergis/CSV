@@ -3,7 +3,6 @@ package ru.grishin.csv.search;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 
 public class Find {
 
@@ -21,8 +20,8 @@ public class Find {
     public byte[] generate() throws IOException {
         String result = "";
         try (BufferedReader reader = new BufferedReader(new FileReader(in))) {
-            int index1 = -1;
             boolean first = true;
+            boolean fix = true;
             String line;
             index = -1;
             while ((line = reader.readLine()) != null) {
@@ -32,39 +31,9 @@ public class Find {
                         String[] columns2 = columns[i].split(" ");
                         if (col.equals(columns2[0])) {
                             index = i;
-                            if ("Integer".equals(columns2[1])) { //Проверка соответствия типа искомого к типу столбца.
-                                try {
-                                    new Integer(exp);
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Неверный формат строки для столбца Integer.");
-                                    index1 = 2; //Предотвращает печать названия столбцов, в случае неверного формата для столбца.
-                                }
-                            }
-                            if ("Float".equals(columns2[1])) { //Проверка соответствия типа искомого к типу столбца.
-                                try {
-                                    new Float(exp);
-                                } catch (NumberFormatException e) {
-                                    System.out.println("Неверный формат строки для столбца Float.");
-                                    index1 = 2; //Предотвращает печать названия столбцов, в случае неверного формата для столбца.
-                                }
-                            }
-                            if ("String".equals(columns2[1])) { //Проверка соответствия типа искомого к типу столбца.
-                                if (exp.matches("(?i).*[a-zа-я].*")) {
-                                    index1 = -1;
-                                } else {
-                                    System.out.println("Неверный формат строки для столбца String.");
-                                    index1 = 2; //Предотвращает печать названия столбцов, в случае неверного формата для столбца.
-                                }
-                            }
-                            if ("Date".equals(columns2[1])) { //Проверка соответствия типа искомого к типу столбца.
-                                try {
-                                    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                                    format.parse(exp);
-                                } catch (Exception e) {
-                                    System.out.println("Неверный формат строки для столбца Date.");
-                                    index1 = 2; //Предотвращает печать названия столбцов, в случае неверного формата для столбца.
-                                }
-                            }
+                            Check.check(columns2[1], exp);
+                            System.out.println(line);
+                            result += line + "\r\n";
                             break;
                         }
                     }
@@ -72,12 +41,18 @@ public class Find {
                         System.out.println("Столбец " + col + " указан не верно.");
                         break;
                     }
-                    if (index1 < 0) {
+                    first = false;
+                } else {
+                    String[] s = ColumnUtils.parse(line);
+                    if (s[index].equals(exp)){
                         System.out.println(line);
                         result += line + "\r\n";
+                        fix = false;
                     }
-                    first = false;
                 }
+            }
+            if (fix) {
+                System.out.println("Параметр поиска - " + exp + ", не найден.");
             }
         }
         return result.getBytes();

@@ -9,11 +9,13 @@ public class Search {
         try {
             ArgsParser parser = new ArgsParser();
             Args arguments = parser.parse(args);
-            try (FileOutputStream fos = new FileOutputStream(arguments.getOut())) {
+            FileOutputStream fos = new FileOutputStream(arguments.getOut());
+            try  {
                 byte[] b = new Find(arguments.getCol(), arguments.getExp(), arguments.getIn()).generate();
                 fos.write(b);
+            } finally {
+                fos.close();
             }
-            new ColumnUtils(arguments.getExp(), arguments.getIn()).search();
         }catch (ParseException e) {
             System.out.println(e.getMessage());
         }
