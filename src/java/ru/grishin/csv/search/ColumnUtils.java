@@ -5,25 +5,25 @@ import java.util.List;
 
 public class ColumnUtils {
 
-    public static String[] parse(String line)  {
+    public static String[] parse(String line) {
         String s = "";
         boolean spec = false;
         List result2 = new ArrayList<>();
         for (char c : line.toCharArray()) {
             if ("\"".equals(s)) {
                 spec = true;
-                s = s.substring(0, s.length() -1);
+                s = s.substring(0, s.length() - 1);
             }
-            if (spec){
+            if (spec) {
                 s += c;
                 if (s.matches("(?i).*[a-zа-я]\";") | s.matches("(?i).*[a-zа-я]\"\"\";")) {
-                    s = s.substring(0, s.length() -2);
+                    s = s.substring(0, s.length() - 2);
                     s = s.replace("\"\"", "\"");
                     result2.add(s);
                     s = "";
                     spec = false;
                 }
-            }  else {
+            } else {
                 if (';' != c) {
                     s += c;
                 } else {

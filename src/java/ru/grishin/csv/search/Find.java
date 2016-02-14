@@ -9,7 +9,6 @@ public class Find {
     private final String col;
     private final String exp;
     private final String in;
-    public static int index;
 
     public Find(String col, String exp, String in) {
         this.col = col;
@@ -23,7 +22,7 @@ public class Find {
             boolean first = true;
             boolean fix = true;
             String line;
-            index = -1;
+            int index = -1;
             while ((line = reader.readLine()) != null) {
                 if (first) {
                     String[] columns = line.split(";");
@@ -44,7 +43,7 @@ public class Find {
                     first = false;
                 } else {
                     String[] s = ColumnUtils.parse(line);
-                    if (s[index].equals(exp)){
+                    if (s[index].equals(exp)) {
                         System.out.println(line);
                         result += line + "\r\n";
                         fix = false;
