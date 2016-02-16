@@ -22,7 +22,7 @@ public class Find {
         int index = -1;
         String s1 = new String(Files.readAllBytes(Paths.get(in)));
         String[] value = s1.split("\r\n");
-        for (int j = 0; j< value.length; j++) {
+        for (int j = 0; j < value.length; j++) {
             if (j == 0) {
                 String[] columns = value[0].split(";");
                 for (int i = 0; i < columns.length; i++) {
