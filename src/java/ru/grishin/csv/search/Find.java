@@ -1,8 +1,9 @@
 package ru.grishin.csv.search;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Find {
 
@@ -22,12 +23,10 @@ public class Find {
         boolean fix = true;
         int index = -1;
         int maxLine = -1;
-        String s1 = "";
         int counter = 0;
-        Scanner inFile = new Scanner(new File(in));
-        while(inFile.hasNext()) {
-            s1 += inFile.nextLine() + "\r\n";
-        }
+        Path path = Paths.get(in);
+        String s1 = new String(Files.readAllBytes(path));
+
         String[] value = s1.split("\r\n");
         for (int i1 = 0; i1 < value.length; i1++) {
             maxLine = i1;
