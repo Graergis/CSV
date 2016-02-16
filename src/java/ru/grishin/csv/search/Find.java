@@ -25,9 +25,9 @@ public class Find {
         String s1 = "";
         int counter = 0;
         Scanner inFile = new Scanner(new File(in));
-        while(inFile.hasNext()) {
+        while(inFile.hasNext())
             s1 += inFile.nextLine() + "\r\n";
-        }
+
         String[] value = s1.split("\r\n");
         for (int i1 = 0; i1 < value.length; i1++) {
             maxLine = i1;
