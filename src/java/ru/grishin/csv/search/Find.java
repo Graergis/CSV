@@ -2,7 +2,6 @@ package ru.grishin.csv.search;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Find {
@@ -19,20 +18,12 @@ public class Find {
 
     public byte[] generate() throws IOException {
         String result = "";
-        boolean first = true;
         boolean fix = true;
         int index = -1;
-        int maxLine = -1;
-        int counter = 0;
-        Path path = Paths.get(in);
-        String s1 = new String(Files.readAllBytes(path));
-
+        String s1 = new String(Files.readAllBytes(Paths.get(in)));
         String[] value = s1.split("\r\n");
-        for (int i1 = 0; i1 < value.length; i1++) {
-            maxLine = i1;
-        }
-        while (counter <= maxLine) {
-            if (first) {
+        for (int j = 0; j< value.length; j++) {
+            if (j == 0) {
                 String[] columns = value[0].split(";");
                 for (int i = 0; i < columns.length; i++) {
                     String[] columns2 = columns[i].split(" ");
@@ -47,16 +38,14 @@ public class Find {
                     System.out.println("Столбец " + col + " указан не верно.");
                     break;
                 }
-                first = false;
             } else {
-                String[] s = ColumnUtils.parse(value[counter]);
+                String[] s = ColumnUtils.parse(value[j]);
                 if (s[index].equals(exp)) {
-                    System.out.println(value[counter]);
-                    result += value[counter] + "\r\n";
+                    System.out.println(value[j]);
+                    result += value[j] + "\r\n";
                     fix = false;
                 }
             }
-            counter++;
         }
         if (fix) {
             System.out.println("Параметр поиска - " + exp + ", не найден.");
