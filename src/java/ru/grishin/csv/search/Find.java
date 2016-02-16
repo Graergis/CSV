@@ -1,15 +1,14 @@
 package ru.grishin.csv.search;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Find {
 
     private final String col;
     private final String exp;
     private final String in;
-    public static int index;
 
     public Find(String col, String exp, String in) {
         this.col = col;
@@ -19,41 +18,50 @@ public class Find {
 
     public byte[] generate() throws IOException {
         String result = "";
-        try (BufferedReader reader = new BufferedReader(new FileReader(in))) {
-            boolean first = true;
-            boolean fix = true;
-            String line;
-            index = -1;
-            while ((line = reader.readLine()) != null) {
-                if (first) {
-                    String[] columns = line.split(";");
-                    for (int i = 0; i < columns.length; i++) {
-                        String[] columns2 = columns[i].split(" ");
-                        if (col.equals(columns2[0])) {
-                            index = i;
-                            Check.check(columns2[1], exp);
-                            System.out.println(line);
-                            result += line + "\r\n";
-                            break;
-                        }
-                    }
-                    if (index < 0) {
-                        System.out.println("Столбец " + col + " указан не верно.");
+        boolean first = true;
+        boolean fix = true;
+        int index = -1;
+        int maxLine = -1;
+        String s1 = "";
+        int counter = 0;
+        Scanner inFile = new Scanner(new File(in));
+        while(inFile.hasNext()) {
+            s1 += inFile.nextLine() + "\r\n";
+        }
+        String[] value = s1.split("\r\n");
+        for (int i1 = 0; i1 < value.length; i1++) {
+            maxLine = i1;
+        }
+        while (counter <= maxLine) {
+            if (first) {
+                String[] columns = value[0].split(";");
+                for (int i = 0; i < columns.length; i++) {
+                    String[] columns2 = columns[i].split(" ");
+                    if (col.equals(columns2[0])) {
+                        index = i;
+                        Check.check(columns2[1], exp);
+                        System.out.println(value[0]);
+                        result += value[0] + "\r\n";
                         break;
                     }
-                    first = false;
-                } else {
-                    String[] s = ColumnUtils.parse(line);
-                    if (s[index].equals(exp)){
-                        System.out.println(line);
-                        result += line + "\r\n";
-                        fix = false;
-                    }
+                }
+                if (index < 0) {
+                    System.out.println("Столбец " + col + " указан не верно.");
+                    break;
+                }
+                first = false;
+            } else {
+                String[] s = ColumnUtils.parse(value[counter]);
+                if (s[index].equals(exp)) {
+                    System.out.println(value[counter]);
+                    result += value[counter] + "\r\n";
+                    fix = false;
                 }
             }
-            if (fix) {
-                System.out.println("Параметр поиска - " + exp + ", не найден.");
-            }
+            counter++;
+        }
+        if (fix) {
+            System.out.println("Параметр поиска - " + exp + ", не найден.");
         }
         return result.getBytes();
     }
