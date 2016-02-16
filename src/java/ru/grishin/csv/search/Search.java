@@ -11,14 +11,12 @@ public class Search {
         try {
             ArgsParser parser = new ArgsParser();
             Args arguments = parser.parse(args);
-            FileOutputStream fos = new FileOutputStream(arguments.getOut());
-            try  {
-                byte[] b = new Find(arguments.getCol(), arguments.getExp(), arguments.getIn()).generate();
-                fos.write(b);
-            } finally {
+            try (FileOutputStream fos = new FileOutputStream(arguments.getOut())) {
+                Find find = new Find(arguments.getCol(), arguments.getExp(), arguments.getIn());
+                fos.write(find.generate());
                 fos.close();
             }
-        }catch (ParseException e) {
+        } catch (ParseException e) {
             System.out.println(e.getMessage());
         }
     }
