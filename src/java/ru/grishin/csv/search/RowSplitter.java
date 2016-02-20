@@ -5,12 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+  Класс служит для разбиения файла на строки. Содержимое файла передается в виде одной строки.
+ */
 public class RowSplitter {
 
     private final static String SPLITTER = "\r\n";
 
     private Map<String, String> map = new HashMap<>();
 
+    /*
+    Разбивает файл на строки.
+     */
     public List<String> split(String source) {
         List<String> result = new ArrayList<>();
         String[] strings = source.split(SPLITTER);
@@ -37,6 +43,9 @@ public class RowSplitter {
         return result;
     }
 
+    /*
+    Возвращает исходные строки.
+     */
     public String getSource(String s) {
         return map.get(s);
     }

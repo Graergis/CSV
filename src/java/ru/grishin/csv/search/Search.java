@@ -6,6 +6,9 @@ import ru.grishin.csv.search.exception.InvalidArgumentException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/*
+Основной класс программы.
+ */
 public class Search {
 
     public static void main(String[] args) throws IOException, InvalidArgumentException {

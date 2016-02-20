@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Класс служит для поиска выражения в csv файле.
+ */
 public class Find {
 
     private final String col;

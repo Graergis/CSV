@@ -3,6 +3,9 @@ package ru.grishin.csv.search;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+  Класс служит для разбиения строки на ячейки.
+ */
 public class CellSplitter {
 
     public static String[] split(String value) {

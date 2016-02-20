@@ -6,6 +6,9 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
+/*
+Класс служит для получения и проверки входных параметров.
+ */
 public class ArgsParser {
 
     public Args parse(String[] args) throws InvalidArgumentException {

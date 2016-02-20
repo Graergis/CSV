@@ -4,6 +4,9 @@ import ru.grishin.csv.search.exception.CheckTypeException;
 
 import java.text.SimpleDateFormat;
 
+/*
+Класс служит для проверки соответсвия типа столбца к выражению.
+ */
 public class Check {
 
     public static void checkType(String type, String exp) {
