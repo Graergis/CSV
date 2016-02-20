@@ -23,6 +23,10 @@ public class Args {
         return out;
     }
 
+    public String getEnc() {
+        return enc;
+    }
+
     public String getCol() {
         return col;
     }

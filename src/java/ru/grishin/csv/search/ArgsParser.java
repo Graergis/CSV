@@ -1,12 +1,14 @@
 package ru.grishin.csv.search;
 
-import ru.grishin.csv.search.exception.ParseException;
+import ru.grishin.csv.search.exception.InvalidArgumentException;
 
 import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.charset.UnsupportedCharsetException;
 
 public class ArgsParser {
 
-    public Args parse(String[] args) throws ParseException {
+    public Args parse(String[] args) throws InvalidArgumentException {
         String in = "";
         String out = "";
         String enc = "";
@@ -37,24 +39,30 @@ public class ArgsParser {
             }
         }
         if (!in.endsWith(".csv")) {
-            throw new ParseException("Неверное расширение входного файла.");
+            throw new InvalidArgumentException("Неверное расширение входного файла.");
         } else {
             if ((new File(in)).exists()) {
                 System.out.println("Используемый файл - " + in);
             } else
-                throw new ParseException("Указанный файл не найден.");
+                throw new InvalidArgumentException("Указанный файл не найден.");
         }
         if (!out.endsWith(".csv")) {
-            throw new ParseException("Неверное расширение выходного файла.");
+            throw new InvalidArgumentException("Неверное расширение выходного файла.");
         }
-        if (!enc.equals("UTF-8")) {
-            throw new ParseException("Неверная кодировка файла.");
+        if (enc.equals("")) {
+            throw new InvalidArgumentException("Не заполнен параметр enc.");
+        } else {
+            try {
+                Charset.forName(enc);
+            } catch (UnsupportedCharsetException e) {
+                throw new InvalidArgumentException("Задана неподдерживаемая кодировка.");
+            }
         }
-        if (!col.endsWith("")) {
-            throw new ParseException("Неверное название столбца.");
+        if (col.equals("")) {
+            throw new InvalidArgumentException("Не заполнен параметр col.");
         }
-        if (!exp.endsWith("")) {
-            throw new ParseException("Некорректное значение.");
+        if (exp.equals("")) {
+            throw new InvalidArgumentException("Не заполнен параметр exp.");
         }
         return new Args(in, out, enc, col, exp);
     }

@@ -3,13 +3,13 @@ package ru.grishin.csv.search;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ColumnUtils {
+public class CellSplitter {
 
-    public static String[] parse(String line) {
+    public static String[] split(String value) {
         String s = "";
         boolean spec = false;
         List result2 = new ArrayList<>();
-        for (char c : line.toCharArray()) {
+        for (char c : value.toCharArray()) {
             if ("\"".equals(s)) {
                 spec = true;
                 s = s.substring(0, s.length() - 1);

@@ -1,32 +1,32 @@
 package ru.grishin.csv.search;
 
-import ru.grishin.csv.search.exception.CheckException;
+import ru.grishin.csv.search.exception.CheckTypeException;
 
 import java.text.SimpleDateFormat;
 
 public class Check {
 
-    public static void check(String col, String exp) {
-        if ("Integer".equals(col)) {
+    public static void checkType(String type, String exp) {
+        if ("Integer".equals(type)) {
             try {
                 new Integer(exp);
             } catch (NumberFormatException e) {
-                throw new CheckException("Неверный формат строки для столбца Integer.");
+                throw new CheckTypeException("Неверный формат строки для столбца Integer.");
             }
         }
-        if ("Float".equals(col)) {
+        if ("Float".equals(type)) {
             try {
                 new Float(exp);
             } catch (NumberFormatException e) {
-                throw new CheckException("Неверный формат строки для столбца Float.");
+                throw new CheckTypeException("Неверный формат строки для столбца Float.");
             }
         }
-        if ("Date".equals(col)) {
+        if ("Date".equals(type)) {
             try {
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
                 format.parse(exp);
             } catch (Exception e) {
-                throw new CheckException("Неверный формат строки для столбца Date.");
+                throw new CheckTypeException("Неверный формат строки для столбца Date.");
             }
         }
     }
